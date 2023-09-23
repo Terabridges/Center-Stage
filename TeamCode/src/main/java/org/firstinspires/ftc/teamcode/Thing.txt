@@ -1,4 +1,0 @@
-Port 0 - front_left
-Port 1 - front_right
-Port 2 - back_left
-Port 3 - back_right
