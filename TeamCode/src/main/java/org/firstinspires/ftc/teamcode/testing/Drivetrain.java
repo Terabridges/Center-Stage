@@ -1,15 +1,18 @@
 package org.firstinspires.ftc.teamcode.testing;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Drivetrain {
     private DcMotor fl;
     private DcMotor fr;
     private DcMotor bl;
     private DcMotor br;
-    private double transScl;
-    private double rotScl;
+    private double transScl = 1./3.;
+    private double rotScl = 1./3.;
 
     Drivetrain(){
         fl = null;
@@ -34,31 +37,72 @@ public class Drivetrain {
         this.bl = bl;
         this.br = br;
     }
-    void setMotors(OpMode opMode){
+    void setMotors(HardwareMap hardwareMap){
         setMotors(
-                opMode.hardwareMap.get(DcMotor.class, "leftfront_drive"),
-                opMode.hardwareMap.get(DcMotor.class, "rightfront_drive"),
-                opMode.hardwareMap.get(DcMotor.class, "leftback_drive"),
-                opMode.hardwareMap.get(DcMotor.class, "rightback_drive")
+                hardwareMap.get(DcMotor.class, "leftfront_drive"),
+                hardwareMap.get(DcMotor.class, "rightfront_drive"),
+                hardwareMap.get(DcMotor.class, "leftback_drive"),
+                hardwareMap.get(DcMotor.class, "rightback_drive")
+        );
+        setDirectionsStandard();
+    }
+    void setDirections(DcMotorSimple.Direction fl, DcMotorSimple.Direction fr, DcMotorSimple.Direction bl, DcMotorSimple.Direction br){
+        this.fl.setDirection(fl);
+        this.fr.setDirection(fr);
+        this.bl.setDirection(bl);
+        this.br.setDirection(br);
+    }
+    void setDirectionsStandard(){
+        setDirections(
+                DcMotorSimple.Direction.REVERSE,
+                DcMotorSimple.Direction.FORWARD,
+                DcMotorSimple.Direction.REVERSE,
+                DcMotorSimple.Direction.FORWARD
         );
     }
 
+    DcMotor getFl() {
+        return fl;
+    }
+    DcMotor getFr() {
+        return fr;
+    }
+    DcMotor getBl() {
+        return bl;
+    }
+    DcMotor getBr() {
+        return br;
+    }
+
     void motorPow(double fl, double fr, double bl, double br){
-        this.fl.setPower(fl);
-        this.fr.setPower(fr);
-        this.bl.setPower(bl);
-        this.br.setPower(br);
+        double max = Math.max(
+                1.,
+                Math.max(
+                        Math.max(
+                                fl,
+                                fr
+                        ),
+                        Math.max(
+                                bl,
+                                br
+                        )
+                )
+        );
+        this.fl.setPower(fl/max);
+        this.fr.setPower(fr/max);
+        this.bl.setPower(bl/max);
+        this.br.setPower(br/max);
     }
     void transRotPow(double forward, double side, double rot){
         motorPow(
-                (forward + side)*transScl - rot*rotScl,
-                (forward - side)*transScl + rot*rotScl,
                 (forward - side)*transScl - rot*rotScl,
-                (forward + side)*transScl + rot*rotScl
+                (forward + side)*transScl + rot*rotScl,
+                (forward + side)*transScl - rot*rotScl,
+                (forward - side)*transScl + rot*rotScl
         );
     }
     void absoluteTransRotPow(double robotDir, double forward, double side, double rot){
-        // Visualization of why this works: https://www.desmos.com/calculator/kgy249h8rj
+        // Visualization of why this works: https://www.desmos.com/calculator/w7o0jrr7fq
         transRotPow(
                 forward*Math.cos(robotDir) + side*Math.sin(robotDir),
                 forward*Math.cos(robotDir + Math.PI/2) + side*Math.sin(robotDir + Math.PI/2),
