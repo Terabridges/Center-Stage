@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.matttesting;
+package org.firstinspires.ftc.teamcode.MainCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @TeleOp(name="Matt test", group="Linear Opmode")
 
-public class example extends LinearOpMode {
+public class Main extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor front_left = null;
     private DcMotor front_right = null;
