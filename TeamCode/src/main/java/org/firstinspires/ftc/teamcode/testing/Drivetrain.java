@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class Drivetrain {
     private DcMotor fl;
@@ -34,12 +35,12 @@ public class Drivetrain {
         this.bl = bl;
         this.br = br;
     }
-    void setMotors(OpMode opMode){
+    void setMotors(HardwareMap hardwareMap){
         setMotors(
-                opMode.hardwareMap.get(DcMotor.class, "leftfront_drive"),
-                opMode.hardwareMap.get(DcMotor.class, "rightfront_drive"),
-                opMode.hardwareMap.get(DcMotor.class, "leftback_drive"),
-                opMode.hardwareMap.get(DcMotor.class, "rightback_drive")
+                hardwareMap.get(DcMotor.class, "leftfront_drive"),
+                hardwareMap.get(DcMotor.class, "rightfront_drive"),
+                hardwareMap.get(DcMotor.class, "leftback_drive"),
+                hardwareMap.get(DcMotor.class, "rightback_drive")
         );
     }
 
