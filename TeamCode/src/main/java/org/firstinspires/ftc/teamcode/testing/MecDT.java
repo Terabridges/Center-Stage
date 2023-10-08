@@ -1,19 +1,27 @@
 package org.firstinspires.ftc.teamcode.testing;
 
 public class MecDT extends DT{
-    private double transScl;
-    private double rotScl;
+    private double transScl = 1;
+    private double rotScl = 1;
 
     void setScls(double trans, double rot){
         transScl = trans;
         rotScl = rot;
     }
+    void setTransScl(double scl){
+        transScl = scl;
+    }
+    void setRotScl(double scl){
+        rotScl = scl;
+    }
     void directionalPow(double forward, double side, double rot){
+        double maxTrans = Math.max(1, Math.max(forward, side));
+        double maxRot = Math.max(1, rot);
         motorPow(
-                (forward + side)*transScl - rot*rotScl,
-                (forward - side)*transScl + rot*rotScl,
-                (forward - side)*transScl - rot*rotScl,
-                (forward + side)*transScl + rot*rotScl
+                (forward - side)/maxTrans*transScl/Math.sqrt(2) - rot/maxRot*rotScl,
+                (forward + side)/maxTrans*transScl/Math.sqrt(2) + rot/maxRot*rotScl,
+                (forward + side)/maxTrans*transScl/Math.sqrt(2) - rot/maxRot*rotScl,
+                (forward - side)/maxTrans*transScl/Math.sqrt(2) + rot/maxRot*rotScl
         );
     }
     void absoluteDirectionalPow(double robotDir, double forward, double side, double rot){

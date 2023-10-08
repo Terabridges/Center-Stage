@@ -1,11 +1,21 @@
 
 package org.firstinspires.ftc.teamcode.testing;
 
+import android.graphics.Bitmap;
+
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.function.Consumer;
+import org.firstinspires.ftc.robotcore.external.function.Continuation;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 @TeleOp(name="Hardware example", group="Linear Opmode")
 
@@ -15,26 +25,77 @@ public class hardwareExample extends LinearOpMode {
     IMUMecDT drivetrain = hardware.getDrivetrain();
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
-    Telemetry telemetry = dashboard.getTelemetry();
+//    Telemetry telemetry = dashboard.getTelemetry();
+
+
+    // 0 is robot centric
+    // 1 is field centric
+    int transMode = 1;
+    int rotMode = 1;
+    int lBumperPressed = 0;
+    int rBumperPressed = 0;
 
 
     @Override
     public void runOpMode() {
         hardware.init(hardwareMap);
-        drivetrain.setScls(0.2, 0.2);
+        drivetrain.setScls(0.6, 0.4);
+
+
+
+
 
         waitForStart();
 
         while (opModeIsActive()) {
-            if(gamepad1.a)
+            if(gamepad1.a) {
+                drivetrain.initIMU();
                 drivetrain.setForwards();
+            }
+
+            if(gamepad1.left_bumper){
+                transMode = (1 - transMode)*(1 - lBumperPressed) + transMode*lBumperPressed;
+                lBumperPressed = 1;
+            }else{
+                lBumperPressed = 0;
+            }
+            if(gamepad1.right_bumper){
+                rotMode = (1 - rotMode)*(1 - rBumperPressed) + rotMode*rBumperPressed;
+                rBumperPressed = 1;
+            }else{
+                rBumperPressed = 0;
+            }
+
+            if(gamepad1.left_stick_button){
+                drivetrain.setTransScl(1);
+            }else{
+                drivetrain.setTransScl(0.6);
+            }
+            if(gamepad1.right_stick_button){
+                drivetrain.setRotScl(1);
+            }else{
+                drivetrain.setRotScl(0.4);
+            }
+
 
             double robotDirection = drivetrain.getDirection();
-            double targetDirection = Math.atan2(gamepad1.right_stick_y, gamepad1.right_stick_x);
-            double dir = Math.signum(((targetDirection - robotDirection)/Math.PI + 1) % 2 - 1);
+            double targetDirection = Math.atan2(-gamepad1.right_stick_x, -gamepad1.right_stick_y);
+            double diff = ((targetDirection - robotDirection)/Math.PI + 3) % 2 - 1;
+            double dir = Math.max(-1, Math.min(1, diff*8));
             double mag = Math.hypot(gamepad1.right_stick_x, gamepad1.right_stick_y);
 
-            drivetrain.absoluteDirectionalPow(-gamepad1.left_stick_y, -gamepad1.left_stick_x, Math.min(dir*mag, 1.));
+            double rot = dir * mag * rotMode - gamepad1.right_stick_x*(1 - rotMode);
+            if(transMode == 1) {
+                drivetrain.absoluteDirectionalPow(-gamepad1.left_stick_y, -gamepad1.left_stick_x, rot);
+            }else{
+                drivetrain.directionalPow(-gamepad1.left_stick_y, -gamepad1.left_stick_x, rot);
+            }
+
+
+            telemetry.addData("trans mode", transMode);
+            telemetry.addData("rot mode", rotMode);
+            telemetry.addData("current direction", robotDirection);
+            telemetry.update();
         }
     }
 }

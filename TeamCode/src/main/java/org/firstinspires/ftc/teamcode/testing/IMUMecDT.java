@@ -10,6 +10,8 @@ public class IMUMecDT extends MecDT {
     private IMU imu;
     private double forwards = 0;
 
+    private RevHubOrientationOnRobot orientationOnRobot;
+
     void setIMU(IMU imu){
         this.imu = imu;
     }
@@ -17,19 +19,24 @@ public class IMUMecDT extends MecDT {
         return imu;
     }
 
+    void initIMU(){
+        imu.initialize(new IMU.Parameters(orientationOnRobot));
+    }
     void initIMU(
             RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection,
             RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection
     ){
-        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoFacingDirection, usbFacingDirection);
-        imu.initialize(new IMU.Parameters(orientationOnRobot));
+        orientationOnRobot = new RevHubOrientationOnRobot(logoFacingDirection, usbFacingDirection);
+        initIMU();
     }
+
 
     void setForwards(double direction){
         forwards = direction;
     }
     void setForwards(){
-        setForwards(imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS));
+        imu.resetYaw();
+        forwards = 0;
     }
 
     double getDirectionRaw(){

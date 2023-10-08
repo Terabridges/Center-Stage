@@ -26,9 +26,13 @@ public class DT {
     }
 
     void motorPow(double fl, double fr, double bl, double br){
-        this.fl.setPower(fl);
-        this.fr.setPower(fr);
-        this.bl.setPower(bl);
-        this.br.setPower(br);
+        double max = Math.max(1, Math.max(
+                Math.max(fl, fr),
+                Math.max(bl, br)
+        ));
+        this.fl.setPower(fl/max);
+        this.fr.setPower(fr/max);
+        this.bl.setPower(bl/max);
+        this.br.setPower(br/max);
     }
 }
