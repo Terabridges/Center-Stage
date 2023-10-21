@@ -1,28 +1,18 @@
 
-package org.firstinspires.ftc.teamcode.testing;
-
-import android.graphics.Bitmap;
+package org.firstinspires.ftc.teamcode.testing.structureOptions.inheritanceStructure;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.function.Consumer;
-import org.firstinspires.ftc.robotcore.external.function.Continuation;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.stream.CameraStreamSource;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvWebcam;
 
 @TeleOp(name="Hardware example", group="Linear Opmode")
 
 public class hardwareExample extends LinearOpMode {
 
     Hardware hardware = new Hardware();
-    IMUMecDT drivetrain = hardware.getDrivetrain();
+    IMUDT drivetrain = hardware.getDrivetrain();
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
     Telemetry telemetry = dashboard.getTelemetry();

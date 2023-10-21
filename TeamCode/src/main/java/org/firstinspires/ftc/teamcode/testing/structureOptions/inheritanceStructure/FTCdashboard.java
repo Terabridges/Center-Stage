@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.testing.structureOptions.inheritanceStructure;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 

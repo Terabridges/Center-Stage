@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.testing.structureOptions.inheritanceStructure;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -6,8 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+
 public class Hardware {
-    private IMUMecDT drivetrain = new IMUMecDT();
+    private IMUDT drivetrain = new IMUDT();
+    private WebcamName webcamName;
 
     void init(HardwareMap hardwareMap){
         drivetrain.setMotors(
@@ -22,7 +25,6 @@ public class Hardware {
                 DcMotorSimple.Direction.REVERSE,
                 DcMotorSimple.Direction.FORWARD
         );
-
         drivetrain.setIMU(
                 hardwareMap.get(IMU.class, "imu")
         );
@@ -30,9 +32,11 @@ public class Hardware {
                 RevHubOrientationOnRobot.LogoFacingDirection.FORWARD,
                 RevHubOrientationOnRobot.UsbFacingDirection.UP
         );
+
+        webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
     }
 
-    IMUMecDT getDrivetrain(){
+    IMUDT getDrivetrain(){
         return drivetrain;
     }
 }

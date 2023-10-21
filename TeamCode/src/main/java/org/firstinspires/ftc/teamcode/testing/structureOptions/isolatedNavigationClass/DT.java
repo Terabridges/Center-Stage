@@ -1,8 +1,6 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.testing.structureOptions.isolatedNavigationClass;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class DT {
     private DcMotor fl;
@@ -18,7 +16,7 @@ public class DT {
         this.br = br;
     }
 
-    void setDirections(DcMotorSimple.Direction fl, DcMotorSimple.Direction fr, DcMotorSimple.Direction bl, DcMotorSimple.Direction br){
+    void setDirections(DcMotor.Direction fl, DcMotor.Direction fr, DcMotor.Direction bl, DcMotor.Direction br){
         this.fl.setDirection(fl);
         this.fr.setDirection(fr);
         this.bl.setDirection(bl);

@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode.testing;
+package org.firstinspires.ftc.teamcode.testing.structureOptions.inheritanceStructure;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-public class IMUMecDT extends MecDT {
+public class IMUDT extends MecDT {
     private IMU imu;
     private double forwards = 0;
     private double lastRead;
