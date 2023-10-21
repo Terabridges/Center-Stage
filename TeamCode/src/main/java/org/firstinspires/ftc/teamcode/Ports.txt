@@ -1,4 +1,4 @@
 Port 0 - leftfront_drive
 Port 1 - rightfront_drive
-Port 2 - backleft_drive
-Port 3 - backright_drive
+Port 2 - leftback_drive
+Port 3 - rightback_drive

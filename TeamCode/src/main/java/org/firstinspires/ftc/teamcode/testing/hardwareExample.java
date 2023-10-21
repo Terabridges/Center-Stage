@@ -25,7 +25,7 @@ public class hardwareExample extends LinearOpMode {
     IMUMecDT drivetrain = hardware.getDrivetrain();
 
     FtcDashboard dashboard = FtcDashboard.getInstance();
-//    Telemetry telemetry = dashboard.getTelemetry();
+    Telemetry telemetry = dashboard.getTelemetry();
 
 
     // 0 is robot centric

@@ -9,6 +9,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 public class IMUMecDT extends MecDT {
     private IMU imu;
     private double forwards = 0;
+    private double lastRead;
+    int breaks;
 
     private RevHubOrientationOnRobot orientationOnRobot;
 
@@ -43,7 +45,17 @@ public class IMUMecDT extends MecDT {
         return imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
     double getDirection(){
-        return getDirectionRaw() - forwards;
+        double direction = getDirectionRaw();
+//        if(Double.isNaN(direction)){
+//            direction = 0;
+//            forwards -= lastRead;
+//            initIMU();
+//
+//            breaks++;
+//        }else{
+//            lastRead = direction;
+//        }
+        return direction - forwards;
     }
 
     void absoluteDirectionalPow(double forward, double side, double rot){
