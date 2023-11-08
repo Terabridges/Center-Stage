@@ -11,7 +11,7 @@ interface DT4 {
     }
 
     default void setDirections(DcMotor.Direction fl, DcMotor.Direction fr, DcMotor.Direction bl, DcMotor.Direction br){
-        final Motors motors = getMotors();
+        Motors motors = getMotors();
         motors.getFL().setDirection(fl);
         motors.getFR().setDirection(fr);
         motors.getBL().setDirection(bl);
@@ -23,7 +23,7 @@ interface DT4 {
                 Math.max(fl, fr),
                 Math.max(bl, br)
         ));
-        final Motors motors = getMotors();
+        Motors motors = getMotors();
         motors.getFL().setPower(fl/max);
         motors.getFR().setPower(fr/max);
         motors.getBL().setPower(bl/max);

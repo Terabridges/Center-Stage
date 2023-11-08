@@ -23,6 +23,24 @@ public class DT {
         this.br.setDirection(br);
     }
 
+    DTEncoderState createEncoderState(){
+        return new DTEncoderState(
+                fl.getCurrentPosition(),
+                fr.getCurrentPosition(),
+                bl.getCurrentPosition(),
+                br.getCurrentPosition()
+        );
+    }
+
+    Movement calcPosition(){
+        DTEncoderState state = createEncoderState();
+        return new Movement(
+                state.getFl() + state.getFr() + state.getBl() + state.getBr(),
+                0,
+                -state.getFl() + state.getFr() + -state.getBl() + state.getBr()
+        );
+    }
+
     void motorPow(double fl, double fr, double bl, double br){
         double max = Math.max(1, Math.max(
                 Math.max(fl, fr),
@@ -32,5 +50,9 @@ public class DT {
         this.fr.setPower(fr/max);
         this.bl.setPower(bl/max);
         this.br.setPower(br/max);
+    }
+
+    void stop(){
+        motorPow(0, 0, 0, 0);
     }
 }

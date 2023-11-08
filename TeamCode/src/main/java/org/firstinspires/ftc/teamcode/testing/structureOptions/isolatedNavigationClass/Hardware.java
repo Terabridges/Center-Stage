@@ -10,19 +10,19 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 public class Hardware {
-    private MecDT drivetrain = new MecDT();
+    private MecDT DT = new MecDT();
     private WebcamName webcamName;
     private IMU imu;
     private RevHubOrientationOnRobot orientationOnRobot;
 
     void init(HardwareMap hardwareMap){
-        drivetrain.setMotors(
+        DT.setMotors(
                 hardwareMap.get(DcMotor.class, "leftfront_drive"),
                 hardwareMap.get(DcMotor.class, "rightfront_drive"),
                 hardwareMap.get(DcMotor.class, "leftback_drive"),
                 hardwareMap.get(DcMotor.class, "rightback_drive")
         );
-        drivetrain.setDirections(
+        DT.setDirections(
                 DcMotorSimple.Direction.REVERSE,
                 DcMotorSimple.Direction.FORWARD,
                 DcMotorSimple.Direction.REVERSE,
@@ -39,8 +39,8 @@ public class Hardware {
         webcamName = hardwareMap.get(WebcamName.class, "Webcam 1");
     }
 
-    MecDT getDrivetrain(){
-        return drivetrain;
+    MecDT getDT(){
+        return DT;
     }
 
     IMU getIMU(){
