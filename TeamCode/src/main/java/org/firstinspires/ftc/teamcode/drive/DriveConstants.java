@@ -65,7 +65,10 @@ public class DriveConstants {
      * small and gradually increase them later after everything is working. All distance units are
      * inches.
      */
-    public static double MAX_VEL = 30;
+    public static double MAX_VEL = 54; //Max Velocity Tuner Reported a maximum velocity of 60.7; 90%-95% is recomended
+    //Max Recommended Velocity: 48.58658307241409
+    //Max Velocity: 60.73322884051761
+    //Voltage Compensated kF: 7068.56006078333
     public static double MAX_ACCEL = 30;
     public static double MAX_ANG_VEL = Math.toRadians(60);
     public static double MAX_ANG_ACCEL = Math.toRadians(60);
