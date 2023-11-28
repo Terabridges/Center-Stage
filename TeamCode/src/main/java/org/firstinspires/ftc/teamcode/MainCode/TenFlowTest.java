@@ -63,6 +63,12 @@ public class TenFlowTest extends LinearOpMode {
      */
     private TfodProcessor tfod;
 
+    private static final String TFOD_MODEL_ASSET = "model_20231126_163450.tflite";
+    private static final String[] LABELS = {
+            "BlueModel",
+            "RedModel"
+    };
+
     /**
      * The variable to store our instance of the vision portal.
      */
@@ -189,10 +195,10 @@ public class TenFlowTest extends LinearOpMode {
 
                 // Use setModelAssetName() if the TF Model is built in as an asset.
                 // Use setModelFileName() if you have downloaded a custom team model to the Robot Controller.
-                //.setModelAssetName(TFOD_MODEL_ASSET)
-                //.setModelFileName(TFOD_MODEL_FILE)
+                .setModelAssetName(TFOD_MODEL_ASSET)
+                //.setModelFileName("model_20231126_163450.tflite")
 
-                //.setModelLabels(LABELS)
+                .setModelLabels(LABELS)
                 //.setIsModelTensorFlow2(true)
                 //.setIsModelQuantized(true)
                 //.setModelInputSize(300)

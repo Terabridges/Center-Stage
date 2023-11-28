@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.MainCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+@TeleOp(name="Arm", group="Linear Opmode")
 public class Arm extends LinearOpMode
 {
     @Override
@@ -12,8 +14,10 @@ public class Arm extends LinearOpMode
     {
         DcMotor viperSlideLeft = hardwareMap.get(DcMotor.class, "viper_slide_left");
         viperSlideLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        //viperSlideLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         DcMotor viperSlideRight = hardwareMap.get(DcMotor.class, "viper_slide_right");
         viperSlideRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        //viperSlideRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         Servo elbow_servo = hardwareMap.get(Servo.class, "elbow_servo" );
         Servo claw_servo = hardwareMap.get(Servo.class, "claw_servo" );
@@ -24,9 +28,9 @@ public class Arm extends LinearOpMode
         double clawZeroPos = claw_servo.getPosition();
 
         //Important: 0 is temporary, test to find best position to place pixels
-        int slidePlacePos = 0;
-        double elbowPlacePos = 0;
-        double clawPlacePos = 0;
+        int slidePlacePos = slideZeroPos + 0;
+        double elbowPlacePos = elbowZeroPos + .5;
+        double clawPlacePos = clawZeroPos + .5;
 
         waitForStart();
         while(opModeIsActive())
@@ -51,7 +55,9 @@ public class Arm extends LinearOpMode
             if (gamepad1.a)
             {
                 viperSlideLeft.setTargetPosition(slidePlacePos);
+                //viperSlideLeft.setPower(5);
                 viperSlideRight.setTargetPosition(slidePlacePos);
+                //viperSlideRight.setPower(5);
                 elbow_servo.setPosition(elbowPlacePos);
                 claw_servo.setPosition(clawPlacePos);
             }
