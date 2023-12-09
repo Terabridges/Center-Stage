@@ -29,4 +29,22 @@ public class DTEncoderState {
     double getBr(){
         return br;
     }
+
+    DTEncoderState difference(double fl, double fr, double bl, double br){
+        return new DTEncoderState(
+                fl - this.fl,
+                fr - this.fr,
+                bl - this.bl,
+                br - this.br
+        );
+    }
+
+    DTEncoderState difference(DTEncoderState dtEncoderState){
+        return difference(
+                dtEncoderState.getFl(),
+                dtEncoderState.getFr(),
+                dtEncoderState.getBl(),
+                dtEncoderState.getBr()
+        );
+    }
 }

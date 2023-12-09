@@ -23,7 +23,7 @@ public class DT {
         this.br.setDirection(br);
     }
 
-    DTEncoderState createEncoderState(){
+    DTEncoderState generateEncoderState(){
         return new DTEncoderState(
                 fl.getCurrentPosition(),
                 fr.getCurrentPosition(),
@@ -33,7 +33,7 @@ public class DT {
     }
 
     Movement calcPosition(){
-        DTEncoderState state = createEncoderState();
+        DTEncoderState state = generateEncoderState();
         return new Movement(
                 state.getFl() + state.getFr() + state.getBl() + state.getBr(),
                 0,

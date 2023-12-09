@@ -17,7 +17,7 @@ public class MecDT extends DT {
     }
 
     Movement calcPosition(){
-        DTEncoderState state = createEncoderState();
+        DTEncoderState state = generateEncoderState();
         return new Movement(
                 state.getFl() + state.getFr() + state.getBl() + state.getBr(),
                 state.getFl() - state.getFr() - state.getBl() + state.getBr(),
