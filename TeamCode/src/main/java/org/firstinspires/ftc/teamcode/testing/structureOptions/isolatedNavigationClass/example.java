@@ -32,6 +32,6 @@ public class example extends LinearOpMode {
 
         waitForStart();
 
-        nav.forward(0.5, 10000);
+//        nav.forward(0.5, 10000);
     }
 }
